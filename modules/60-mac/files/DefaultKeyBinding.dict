@@ -1,0 +1,66 @@
+/*
+ * Cocoa key bindings — windows/linux-style text editing on macOS.
+ *
+ * Lives at ~/Library/KeyBindings/DefaultKeyBinding.dict
+ * Read once at app launch, so restart an app to pick up changes.
+ *
+ * Modifier sigils:  ^ = control   ~ = option   $ = shift   @ = command   # = keypad
+ * Key codes:  Home \UF729  End \UF72B  PgUp \UF72C  PgDn \UF72D
+ *             Del \UF728   Ins \UF727  Backspace \U0008
+ *             Up \UF700  Down \UF701  Left \UF702  Right \UF703
+ */
+{
+    /* ---- home / end : line, not document ---- */
+    "\UF729"   = "moveToBeginningOfLine:";
+    "$\UF729"  = "moveToBeginningOfLineAndModifySelection:";
+    "\UF72B"   = "moveToEndOfLine:";
+    "$\UF72B"  = "moveToEndOfLineAndModifySelection:";
+
+    /* ctrl-home / ctrl-end : top and bottom of document */
+    "^\UF729"  = "moveToBeginningOfDocument:";
+    "^$\UF729" = "moveToBeginningOfDocumentAndModifySelection:";
+    "^\UF72B"  = "moveToEndOfDocument:";
+    "^$\UF72B" = "moveToEndOfDocumentAndModifySelection:";
+
+    /* ---- page up / page down ---- */
+    "$\UF72C"  = "pageUpAndModifySelection:";
+    "$\UF72D"  = "pageDownAndModifySelection:";
+
+    /* ---- ctrl-arrow : word-at-a-time ---- */
+    /* NOTE: ctrl-left/right are eaten by Mission Control space switching by
+     * default. System Settings > Keyboard > Shortcuts > Mission Control,
+     * uncheck "Move left/right a space" for these to reach the app. */
+    "^\UF702"  = "moveWordLeft:";
+    "^$\UF702" = "moveWordLeftAndModifySelection:";
+    "^\UF703"  = "moveWordRight:";
+    "^$\UF703" = "moveWordRightAndModifySelection:";
+
+    /* ctrl-up/down : paragraph */
+    "^\UF700"  = "moveToBeginningOfParagraph:";
+    "^$\UF700" = "moveParagraphBackwardAndModifySelection:";
+    "^\UF701"  = "moveToEndOfParagraph:";
+    "^$\UF701" = "moveParagraphForwardAndModifySelection:";
+
+    /* ---- word-wise delete ---- */
+    "^\U0008"  = "deleteWordBackward:";
+    "^\UF728"  = "deleteWordForward:";
+
+    /* ---- clipboard / undo on ctrl instead of cmd ---- */
+    /* these clobber the built-in emacs bindings: ^a ^e ^k ^y ^v ^t etc. */
+    "^a"       = "selectAll:";
+    "^c"       = "copy:";
+    "^x"       = "cut:";
+    "^v"       = "paste:";
+    "^z"       = "undo:";
+    "^y"       = "redo:";
+    "^$z"      = "redo:";
+
+    /* classic windows clipboard combos */
+    "^\UF727"  = "copy:";
+    "$\UF727"  = "paste:";
+    "$\UF728"  = "cut:";
+
+    /* ---- misc ---- */
+    /* only works in NSDocument-based apps (TextEdit, Pages, ...) */
+    "^s"       = "saveDocument:";
+}
