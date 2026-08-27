@@ -72,6 +72,7 @@ only the section the table points at and leave everything else alone.
 | Add a font | Drop a file in `modules/30-fonts/`, e.g. `my-font.font`, containing `FONT_NAME`, `FONT_URL`, and `FONT_BREW` (the brew cask name, mac) |
 | Add an app | `modules/50-apps/setup.sh` — write an `app_whatever()` function and add it to the `APPS` array |
 | Add an editor plugin | `modules/40-editors/setup.sh` — the `PLUGINS` array (git URLs) |
+| Add/remove a browser extension | `modules/45-browsers/setup.sh` — the `EXTENSIONS` array; each entry is `name\|firefox AMO slug\|chrome Web Store id`, leave a field empty when that browser doesn't have it |
 | Change vim/nvim configs | `modules/40-editors/files/` — `vimrc`, `init.vim`, `ale.vim`, `eldar.vim` |
 | Change mac-specific stuff | `modules/60-mac/setup.sh` and `modules/60-mac/files/` (key bindings, ghostty, karabiner, hammerspoon) |
 | Change the AI agents / keys | `modules/70-agents/setup.sh` (omp + kilocode, deepseek provider config) |
@@ -85,6 +86,8 @@ only the section the table points at and leave everything else alone.
   homebrew first on mac.
 - **30-fonts** — Hasklig + Fira Code (one `.font` file each).
 - **40-editors** — vim + neovim merged: shared colorscheme, plugin set, both configs.
+- **45-browsers** — firefox + chrome, plus my extensions (1Password, uBlock,
+  uBlock Origin Lite for chrome, Raindrop, Dark Reader) installed into both.
 - **50-apps** — apps like signal-desktop (official apt repo, brew cask, or flatpak).
 - **60-mac** — dock/keyboard defaults, Cocoa key bindings, ghostty, karabiner
   (ctrl-as-cmd), hammerspoon (ctrl-click opens links in new tabs).
