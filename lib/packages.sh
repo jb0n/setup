@@ -18,22 +18,22 @@ packages_core() {
 # ---------- dev: toolchain, languages, and the tools i reach for ----------
 packages_dev() {
     case "$PM" in
-        brew)   echo "go jq htop tmux ripgrep fd fzf shellcheck" ;;
+        brew)   echo "go jq htop tmux ripgrep fd fzf shellcheck gh" ;;
         apt)    echo "build-essential gdb golang python3 python3-pip libssl-dev \
                       jq htop tmux strace tcpdump net-tools nmap iperf3 traceroute \
-                      ripgrep fd-find fzf shellcheck" ;;
+                      ripgrep fd-find fzf shellcheck gh" ;;
         dnf)    echo "gcc gcc-c++ make gdb golang python3 python3-pip openssl-devel \
                       jq htop tmux strace tcpdump net-tools nmap iperf3 traceroute \
-                      ripgrep fd-find fzf ShellCheck" ;;
+                      ripgrep fd-find fzf ShellCheck gh" ;;
         pacman) echo "base-devel gdb go python python-pip openssl \
                       jq htop tmux strace tcpdump net-tools nmap iperf3 traceroute \
-                      ripgrep fd fzf shellcheck" ;;
+                      ripgrep fd fzf shellcheck github-cli" ;;
         zypper) echo "gcc gcc-c++ make gdb golang python3 python3-pip openssl-devel \
                       jq htop tmux strace tcpdump net-tools nmap iperf3 traceroute \
-                      ripgrep fd fzf ShellCheck" ;;
+                      ripgrep fd fzf ShellCheck gh" ;;
         apk)    echo "build-base gdb go python3 py3-pip openssl-dev \
                       jq htop tmux strace tcpdump net-tools nmap iperf3 traceroute \
-                      ripgrep fd fzf shellcheck libstdc++ libgcc" ;;
+                      ripgrep fd fzf shellcheck gh libstdc++ libgcc" ;;
         *) echo "" ;;
     esac
 }

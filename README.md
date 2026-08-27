@@ -76,6 +76,7 @@ only the section the table points at and leave everything else alone.
 | I want to... | Edit |
 | --- | --- |
 | Add/remove a package | `lib/packages.sh` — `packages_core()` (boring base stuff) or `packages_dev()` (toolchain + tools), in the `case` row for each package manager I care about |
+| Change git identity / ssh / PATH | `modules/25-git/setup.sh` |
 | Add a font | Drop a file in `modules/30-fonts/`, e.g. `my-font.font`, containing `FONT_NAME`, `FONT_URL`, and `FONT_BREW` (the brew cask name, mac) |
 | Add an app | `modules/50-apps/setup.sh` — write an `app_whatever()` function and add it to the `APPS` array |
 | Add an editor plugin | `modules/40-editors/setup.sh` — the `PLUGINS` array (git URLs) |
@@ -91,6 +92,7 @@ only the section the table points at and leave everything else alone.
 - **10-sudo** — passwordless sudo for my account (mac + linux).
 - **20-packages** — base + dev packages via brew or the distro pm. Installs
   homebrew first on mac.
+- **25-git** — git identity (jgould), ssh key, and `~/.local/bin` on PATH.
 - **30-fonts** — Hasklig + Fira Code (one `.font` file each).
 - **40-editors** — vim + neovim merged: shared colorscheme, plugin set, both configs.
 - **45-browsers** — firefox + chrome, plus my extensions (1Password, uBlock,
