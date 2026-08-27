@@ -80,7 +80,7 @@ only the section the table points at and leave everything else alone.
 
 ## Current modules
 
-- **10-sudo** — passwordless sudo for my account (linux only).
+- **10-sudo** — passwordless sudo for my account (mac + linux).
 - **20-packages** — base + dev packages via brew or the distro pm. Installs
   homebrew first on mac.
 - **30-fonts** — Hasklig + Fira Code (one `.font` file each).

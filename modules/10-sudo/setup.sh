@@ -1,11 +1,10 @@
 #!/usr/bin/env bash
-# passwordless sudo for the invoking account. linux only.
+# passwordless sudo for the invoking account. mac + linux.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$HERE/../../lib/common.sh"
 
-[ "$PLATFORM" = linux ] || { info "not linux, skipping"; exit 0; }
 [ "$(id -u)" -eq 0 ] && { info "running as root, nothing to grant"; exit 0; }
 
 whoami="$(id -un)"
@@ -22,4 +21,8 @@ sudo -v
 echo "$whoami ALL=(ALL) NOPASSWD: ALL" | sudo tee "$sudoers" >/dev/null
 sudo chmod 440 "$sudoers"
 sudo visudo -c -f "$sudoers"
-ok "passwordless sudo granted ($sudoers)"
+if sudo -n true >/dev/null 2>&1; then
+    ok "passwordless sudo granted ($sudoers)"
+else
+    warn "$sudoers installed but sudo still prompts; is '#includedir /etc/sudoers.d' present in /etc/sudoers?"
+fi
