@@ -1,16 +1,18 @@
 # AGENTS.md
 
-## No machine edits outside this repo (2026-08-27)
+## Machine edits outside this repo (2026-08-27)
 
-- NEVER edit a machine from this repo: no running the setup on the box you're
-  working from unless asked, no touching `~/.config`, `~/bin`, `~/.bashrc`,
-  `/etc`, installed files, or any state a `git checkout` cannot undo.
-- This repo IS the way changes land on a machine: write the change as a file
-  here (a module, a `.font`, a `lib/packages.sh` edit), commit, push, and the
-  setup applies it. Do not mutate the machine directly.
-- Exception: creating/modifying files inside this repo's working tree is fine.
-  Anything else needs explicit approval from the user first.
-- If you made an out-of-repo edit by mistake, say so and revert it.
+- You MAY edit a machine from this repo — including running the setup on the
+  box you're working from, touching `~/.config`, `~/bin`, `~/.bashrc`, `/etc`,
+  or installed files — but ONLY after asking the user and getting explicit
+  approval for that edit. Ask every time; a past approval does not cover
+  future edits.
+- The preferred path is still: this repo IS the way changes land on a machine.
+  Write the change as a file here (a module, a `.font`, a `lib/packages.sh`
+  edit), commit, push, and the setup applies it.
+- Exception: creating/modifying files inside this repo's working tree needs no
+  approval.
+- If you made an out-of-repo edit without asking, say so and revert it.
 
 ## Rules that apply to every change
 
