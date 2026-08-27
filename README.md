@@ -10,6 +10,13 @@ machine comes up the way I like it. Re-running it is always safe — **every par
 this repo is idempotent by contract**. I will be iterating on this forever, so the
 number one rule is: never commit a change that breaks a re-run.
 
+## Hard rules
+
+1. Browser extensions come only from the official stores — AMO for Firefox,
+   Chrome Web Store for Chrome. **NEVER** install unpacked, forked, or "custom"
+   Chrome extensions. The `ExtensionInstallForcelist` policy only supports Web
+   Store extensions, and that is the only Chrome extension path this repo uses.
+
 ## Usage
 
 ```sh
