@@ -69,9 +69,15 @@ fi
 
 # ---- go binaries for the go plugins (vim-go needs them) ----
 if has go; then
-    vim -esN +GoInstallBinaries +q || warn "vim GoInstallBinaries did not finish cleanly"
+    if has vim; then
+        vim -esN +GoInstallBinaries +q || warn "vim GoInstallBinaries did not finish cleanly"
+    else
+        warn "vim not installed, skipping its GoInstallBinaries"
+    fi
     if has nvim; then
         nvim -esN +GoInstallBinaries +q || warn "nvim GoInstallBinaries did not finish cleanly"
+    else
+        warn "nvim not installed, skipping its GoInstallBinaries"
     fi
 else
     warn "go not installed, skipping GoInstallBinaries"

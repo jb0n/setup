@@ -35,6 +35,10 @@ install_font() {
         ok "$name already installed"
         return
     fi
+    if ! has wget; then
+        warn "need wget (or brew) to install $name, skipping"
+        return
+    fi
     info "installing $name"
     wget -q -O "$dir/$zipname" "$url"
     (cd "$dir" && unzip -oq "$zipname")

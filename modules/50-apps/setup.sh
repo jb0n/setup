@@ -13,6 +13,11 @@ app_signal() {
         ok "signal-desktop already installed"
         return 0
     fi
+    # flatpak apps aren't on PATH, so catch that install method too
+    if has flatpak && flatpak list --app 2>/dev/null | grep -q 'org.signal.Signal'; then
+        ok "signal-desktop already installed (flatpak)"
+        return 0
+    fi
 
     case "$PM" in
         apt)
