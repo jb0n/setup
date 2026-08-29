@@ -100,5 +100,6 @@ only the section the table points at and leave everything else alone.
 - **50-apps** — apps like signal-desktop (official apt repo, brew cask, or flatpak).
 - **60-mac** — dock/keyboard defaults, Cocoa key bindings, ghostty, karabiner
   (ctrl-as-cmd), hammerspoon (ctrl-click opens links in new tabs).
-- **70-agents** — omp (oh-my-pi) + kilocode, and wires the deepseek key into both
-  when `--deepseek-apikey` is given.
+- **70-agents** — omp (oh-my-pi) + kilocode, wires the deepseek key into both
+  when `--deepseek-apikey` is given, and installs the kilocode
+  deepseek-balance sidebar plugin.
