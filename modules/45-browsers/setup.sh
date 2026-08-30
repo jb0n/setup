@@ -17,7 +17,8 @@ EXTENSIONS=(
     "Dark Reader|darkreader|eimadpbcbfnmbkopoojfekhnkhdbieeh"
 )
 
-has_firefox() { has firefox || has firefox-esr; }
+has_firefox() { has firefox || has firefox-esr || [ -d "/Applications/Firefox.app" ]; }
+has_chrome()  { has google-chrome || has google-chrome-stable || [ -d "/Applications/Google Chrome.app" ]; }
 
 #---------------------------------------------------------------------
 # browser install
@@ -28,19 +29,21 @@ install_firefox() {
         return 0
     fi
     if [ "$PM" = brew ]; then
-        brew install --cask firefox
+        brew install --cask firefox || true
+        has_firefox || warn "firefox: brew install failed, install it manually"
     else
         pkg_install firefox || pkg_install firefox-esr || warn "could not install firefox"
     fi
 }
 
 install_chrome() {
-    if has google-chrome || has google-chrome-stable; then
+    if has_chrome; then
         echo "google-chrome already installed"
         return 0
     fi
     if [ "$PM" = brew ]; then
-        brew install --cask google-chrome
+        brew install --cask google-chrome || true
+        has_chrome || warn "google-chrome: brew install failed, install it manually"
         return 0
     fi
     case "$PM" in
@@ -107,10 +110,21 @@ find_firefox_profile() {
 }
 
 ensure_firefox_profile() {
-    local p
+    local p t
     p="$(find_firefox_profile)" && { echo "$p"; return 0; }
     info "no firefox profile yet; launching firefox headless once to create one..."
-    timeout 30 firefox --headless --new-instance about:blank >/dev/null 2>&1 || true
+    if has timeout; then t=timeout
+    elif has gtimeout; then t=gtimeout
+    fi
+    if [ -n "$t" ]; then
+        $t 30 firefox --headless --new-instance about:blank >/dev/null 2>&1 || true
+    else
+        firefox --headless --new-instance about:blank >/dev/null 2>&1 &
+        local fp=$!
+        sleep 20
+        kill "$fp" 2>/dev/null || true
+        wait "$fp" 2>/dev/null || true
+    fi
     p="$(find_firefox_profile)" && { echo "$p"; return 0; }
     return 1
 }
@@ -205,8 +219,8 @@ PY
 install_firefox
 install_chrome
 
-has_firefox && install_firefox_extensions
-if has google-chrome || has google-chrome-stable; then
+has_firefox && { install_firefox_extensions || true; }
+if has_chrome; then
     install_chrome_extensions
 fi
 
