@@ -68,19 +68,39 @@ if [ ! -e ~/.config/nvim/init.vim ]; then
 fi
 
 # ---- go binaries for the go plugins (vim-go needs them) ----
+# install directly instead of :GoInstallBinaries -- running that headless
+# (vim -esN ... +q) hangs in vim's silent-mode input loop waiting on the tty.
+# mirrors vim-go's s:packages table; each install is skipped if already done.
+GO_TOOLS=(
+    "github.com/klauspost/asmfmt/cmd/asmfmt@latest"
+    "github.com/go-delve/delve/cmd/dlv@latest"
+    "github.com/kisielk/errcheck@latest"
+    "github.com/davidrjenni/reftools/cmd/fillstruct@master"
+    "github.com/rogpeppe/godef@latest"
+    "golang.org/x/tools/cmd/goimports@master"
+    "github.com/mgechev/revive@latest"
+    "golang.org/x/tools/gopls@latest"
+    "github.com/golangci/golangci-lint/v2/cmd/golangci-lint@latest"
+    "honnef.co/go/tools/cmd/staticcheck@latest"
+    "github.com/fatih/gomodifytags@latest"
+    "github.com/jstemmer/gotags@master"
+    "github.com/josharian/impl@main"
+    "github.com/fatih/motion@latest"
+    "github.com/koron/iferr@master"
+)
 if has go; then
-    if has vim; then
-        vim -esN +GoInstallBinaries +q || warn "vim GoInstallBinaries did not finish cleanly"
-    else
-        warn "vim not installed, skipping its GoInstallBinaries"
-    fi
-    if has nvim; then
-        nvim -esN +GoInstallBinaries +q || warn "nvim GoInstallBinaries did not finish cleanly"
-    else
-        warn "nvim not installed, skipping its GoInstallBinaries"
-    fi
+    GO_BIN_DIR="$(go env GOBIN)"
+    for spec in "${GO_TOOLS[@]}"; do
+        bin="$(basename "${spec%@*}")"
+        if [ -x "$GO_BIN_DIR/$bin" ]; then
+            info "go tool $bin already installed"
+        else
+            info "installing go tool $bin"
+            go install "$spec" || warn "failed to install $bin"
+        fi
+    done
 else
-    warn "go not installed, skipping GoInstallBinaries"
+    warn "go not installed, skipping vim-go tools"
 fi
 
 ok "editors done"
