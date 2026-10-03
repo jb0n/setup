@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# mac desktop setup: system defaults, key bindings, ghostty, karabiner,
-# hammerspoon. mac only. fonts come from the 30-fonts module, packages
-# (incl. homebrew) from 20-packages.
+# mac desktop setup: system defaults, key bindings, karabiner, hammerspoon.
+# mac only. ghostty lives in 55-ghostty (mac + linux), fonts in 30-fonts,
+# packages (incl. homebrew) in 20-packages.
 
 set -euo pipefail
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -65,27 +65,6 @@ fi
 plutil -lint "$FILES/DefaultKeyBinding.dict" >/dev/null
 cp "$FILES/DefaultKeyBinding.dict" "$KB_FILE"
 info "installed $KB_FILE (restart apps to pick it up)"
-
-
-#---------------------------------------------------------------------
-# ghostty
-#---------------------------------------------------------------------
-if [ -d "/Applications/Ghostty.app" ]; then
-    echo "ghostty already installed"
-else
-    echo "installing ghostty..."
-    brew install --cask ghostty
-fi
-
-GHOSTTY_DIR="$HOME/.config/ghostty"
-GHOSTTY_FILE="$GHOSTTY_DIR/config"
-mkdir -p "$GHOSTTY_DIR"
-if [ -f "$GHOSTTY_FILE" ] && ! cmp -s "$FILES/ghostty.config" "$GHOSTTY_FILE"; then
-    cp "$GHOSTTY_FILE" "$GHOSTTY_FILE.bak.$(date +%Y%m%d%H%M%S)"
-    echo "backed up existing $GHOSTTY_FILE"
-fi
-cp "$FILES/ghostty.config" "$GHOSTTY_FILE"
-info "installed $GHOSTTY_FILE"
 
 
 #---------------------------------------------------------------------

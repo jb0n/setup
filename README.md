@@ -82,7 +82,8 @@ only the section the table points at and leave everything else alone.
 | Add an editor plugin | `modules/40-editors/setup.sh` — the `PLUGINS` array (git URLs) |
 | Add/remove a browser extension | `modules/45-browsers/setup.sh` — the `EXTENSIONS` array; each entry is `name\|firefox AMO slug\|chrome Web Store id`, leave a field empty when that browser doesn't have it |
 | Change vim/nvim configs | `modules/40-editors/files/` — `vimrc`, `init.vim`, `ale.vim`, `eldar.vim` |
-| Change mac-specific stuff | `modules/60-mac/setup.sh` and `modules/60-mac/files/` (key bindings, ghostty, karabiner, hammerspoon) |
+| Change the ghostty config | `modules/55-ghostty/files/ghostty.config` (applies on mac + linux) |
+| Change mac-specific stuff | `modules/60-mac/setup.sh` and `modules/60-mac/files/` (key bindings, karabiner, hammerspoon) |
 | Change the AI agents / keys | `modules/70-agents/setup.sh` (omp + kilocode, deepseek provider config) |
 | Add a whole new module | `modules/NN-name/setup.sh` — source `lib/common.sh`, follow the idempotency contract |
 | Add a shared helper | `lib/common.sh` |
@@ -98,7 +99,9 @@ only the section the table points at and leave everything else alone.
 - **45-browsers** — firefox + chrome, plus my extensions (1Password, uBlock,
   uBlock Origin Lite for chrome, Raindrop, Dark Reader) installed into both.
 - **50-apps** — apps like signal-desktop (official apt repo, brew cask, or flatpak).
-- **60-mac** — dock/keyboard defaults, Cocoa key bindings, ghostty, karabiner
+- **55-ghostty** — ghostty terminal on mac + linux: brew cask / distro package
+  (flatpak fallback), plus the shared `~/.config/ghostty/config`.
+- **60-mac** — dock/keyboard defaults, Cocoa key bindings, karabiner
   (ctrl-as-cmd), hammerspoon (ctrl-click opens links in new tabs).
 - **70-agents** — omp (oh-my-pi) + kilocode, wires the deepseek key into both
   when `--deepseek-apikey` is given, and installs the kilocode
